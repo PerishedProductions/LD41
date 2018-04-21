@@ -9,7 +9,7 @@ namespace LD41.Scenes
     public class GameScene : Scene
     {
         
-        public Entity ent { get; set; }
+        public Entity player { get; set; }
 
         public GameScene(MainGame game, string name) : base(game, name)
         {
@@ -21,23 +21,31 @@ namespace LD41.Scenes
 
             base.Init();
 
-            ent = new Entity(this.Game, this);
-            ent.Sprite = Game.Content.Load<Texture2D>("Sprites/32");
-            ent.Position = new Vector2(100, 100);
-            ent.Init();
+            player = new Player(this.Game, this);
+            player.Position = new Vector2(0, 0);
+            player.Init();
+            
         }
 
         public override void Update()
         {
-
-            ent.Update();
+            
+            player.Update();
             base.Update();
+
+            var screenPosition = Vector2.Zero;
+            var worldPosition = Vector2.Zero;
+            Cam.ToWorld(ref screenPosition, out worldPosition);
+
+
+            Console.WriteLine($"Mouse Screen: {screenPosition}");
+            Console.WriteLine($"Mouse World: {worldPosition}");
         }
 
         public override void Draw()
         {
 
-            ent.Draw();
+            player.Draw();
 
             base.Draw();
         }

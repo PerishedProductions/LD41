@@ -3,60 +3,51 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using LD41.Scenes;
 using Comora;
-using MonoGame.Extended.Input.InputListeners;
+using LD41.Util;
+using Microsoft.Xna.Framework.Input;
 
 namespace LD41.Entities
 {
     public class Entity
     {
 
-        public MainGame game;
+        public MainGame Game;
         public Scene scene;
 
         public Texture2D Sprite { get; set; }
         public Vector2 Position { get; set; }
-
-        private KeyboardListener keyboardInput;
+        public float Rotation { get; set; }
 
         public Vector2 Origin
         {
             get { return new Vector2(Sprite.Width / 2, Sprite.Height / 2); }
         }
 
-        public float Rotation { get; set; }
+       
 
         public Entity(MainGame game, Scene scene)
         {
-            this.game = game;
+            this.Game = game;
             this.scene = scene;
         }
 
-        public void Init()
+        public virtual void Init()
         {
-            keyboardInput = new KeyboardListener();
-            keyboardInput.KeyTyped += HandleKeyboardInfo;
         }
 
-        private void HandleKeyboardInfo(object sender, KeyboardEventArgs e)
+        public virtual void Update()
         {
-            if (e.Key == Microsoft.Xna.Framework.Input.Keys.A)
-            {
-                Position -= new Vector2(100, 0);
-            }
+
+            
         }
 
-        public void Update()
-        {
-            keyboardInput.Update(game.GameTime);
-        }
-
-        public void Draw()
+        public virtual void Draw()
         {
             if (Sprite != null)
             {
-                game.spriteBatch.Begin(scene.Cam);
-                game.spriteBatch.Draw(Sprite, new Rectangle((int)Position.X, (int)Position.Y, Sprite.Width, Sprite.Height), null, Color.White, Rotation, Origin, SpriteEffects.None, 0);
-                game.spriteBatch.End();
+                Game.spriteBatch.Begin(scene.Cam);
+                Game.spriteBatch.Draw(Sprite, new Rectangle((int)Position.X, (int)Position.Y, Sprite.Width, Sprite.Height), null, Color.White, Rotation, Origin, SpriteEffects.None, 0);
+                Game.spriteBatch.End();
             }
         }
     }

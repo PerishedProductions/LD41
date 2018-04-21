@@ -1,4 +1,5 @@
 ﻿using LD41.Scenes;
+using LD41.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -41,6 +42,8 @@ namespace LD41
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
 
+            IsMouseVisible = true;
+
             sceneManager = new SceneManager(this);
             sceneManager.Init();
             sceneManager.AddScene(new Scene(this, "Sandbox"));
@@ -81,6 +84,9 @@ namespace LD41
         {
             // TODO: Add your update logic here
             GameTime = gameTime;
+
+            Input.Update();
+
             sceneManager.Update();
             base.Update(gameTime);
         }
