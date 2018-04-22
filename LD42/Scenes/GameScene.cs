@@ -1,7 +1,5 @@
 ﻿using System;
-using Comora;
 using LD41.Entities;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using LD41.Util;
 
@@ -11,6 +9,8 @@ namespace LD41.Scenes
     {
         
         public Entity player { get; set; }
+
+        private TileMap map;
 
         public GameScene(MainGame game, string name) : base(game, name)
         {
@@ -25,14 +25,18 @@ namespace LD41.Scenes
             player = new Player(this.Game, this);
             player.Position = new Vector2(0, 0);
             player.Init();
+            map = new TileMap(Game, this);
+            map.LoadMap();
 
-            Cam.Zoom = 1;
+            
         }
 
         public override void Update()
         {
-            
+
+            map.Update();
             player.Update();
+            Cam.Position = player.Position;
             base.Update();
 
         }
@@ -41,7 +45,7 @@ namespace LD41.Scenes
         {
 
             player.Draw();
-
+            map.Draw();
             base.Draw();
         }
 
