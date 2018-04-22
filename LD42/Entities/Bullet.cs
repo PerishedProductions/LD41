@@ -36,8 +36,8 @@ namespace LD41.Entities
             var screenPosition = Input.GetMousePosition();
             var worldPosition = Vector2.Zero;
 
-            scene.Cam.ToWorld(ref screenPosition, out worldPosition);
-            worldPosition = Vector2.Transform(screenPosition, Matrix.Invert(scene.Cam.Transform.Local));
+            //scene.Cam.ToWorld(ref screenPosition, out worldPosition);
+            worldPosition = Vector2.Transform(screenPosition, scene.Cam.ViewportOffset.Absolute);
 
 
             Console.WriteLine($"Mouse Screen: {screenPosition}");

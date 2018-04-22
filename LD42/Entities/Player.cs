@@ -25,7 +25,6 @@ namespace LD41.Entities
 
         public override void Init()
         {
-
             Sprite = Game.Content.Load<Texture2D>("Sprites/32");
 
             base.Init();
@@ -33,8 +32,6 @@ namespace LD41.Entities
 
         public override void Update()
         {
-            
-
             if (Input.IsKeyDown(Keys.W))
             {
                 Position -= new Vector2(0, movementSpeed);
@@ -69,7 +66,6 @@ namespace LD41.Entities
 
         public override void Draw()
         {
-
             for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Draw();
@@ -77,6 +73,5 @@ namespace LD41.Entities
 
             base.Draw();
         }
-
     }
 }
