@@ -13,35 +13,35 @@ namespace LD41.Entities
     public class Bullet : Entity
     {
 
+        public Player Parent { get; set; }
 
         private int movementSpeed = 10;
         private Vector2 dir;
 
-        public Bullet(MainGame game, Scene scene) : base(game, scene)
-        {
+        private int currentDelay;
+        private int delay = 2000;
 
+        public Bullet(MainGame game, Scene scene, Player parent) : base(game, scene)
+        {
+            this.Parent = parent;
         }
 
-        public Bullet(MainGame game, Scene scene, Vector2 positon) : base(game, scene)
+        public Bullet(MainGame game, Scene scene, Vector2 positon, Player parent) : base(game, scene)
         {
             this.Position = positon;
+            this.Parent = parent;
         }
 
         public override void Init()
         {
             base.Init();
 
-            Sprite = Game.Content.Load<Texture2D>("Sprites/32");
+            Sprite = Game.Content.Load<Texture2D>("Sprites/16");
 
-            var screenPosition = Input.GetMousePosition();
-            var worldPosition = Vector2.Zero;
+            Vector2 screenPosition = Input.GetMousePosition();
+            Vector2 worldPosition = Vector2.Zero;
 
-            //scene.Cam.ToWorld(ref screenPosition, out worldPosition);
             worldPosition = Vector2.Transform(screenPosition, scene.Cam.ViewportOffset.Absolute);
-
-
-            Console.WriteLine($"Mouse Screen: {screenPosition}");
-            Console.WriteLine($"Mouse World: {worldPosition}");
 
             dir = worldPosition - Position;
             if (dir != Vector2.Zero)
@@ -54,6 +54,15 @@ namespace LD41.Entities
         public override void Update()
         {
             Position += dir * movementSpeed;
+
+            currentDelay += Game.GameTime.ElapsedGameTime.Milliseconds;
+
+            if (currentDelay >= delay)
+            {
+                Parent.bullets.Remove(this);
+            }
+
+
 
             base.Update();
         }

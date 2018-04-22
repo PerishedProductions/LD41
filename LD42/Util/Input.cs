@@ -111,6 +111,35 @@ namespace LD41.Util
             return false;
         }
 
+        public static bool IsMouseBtnDown(MouseButton mouseBtn)
+        {
+
+            switch (mouseBtn)
+            {
+                case MouseButton.LEFT:
+                    if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        return true;
+                    }
+                    break;
+                case MouseButton.MIDDLE:
+                    if (newMouseState.MiddleButton == ButtonState.Pressed && oldMouseState.MiddleButton == ButtonState.Pressed)
+                    {
+                        return true;
+                    }
+                    break;
+                case MouseButton.RIGHT:
+                    if (newMouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Pressed)
+                    {
+                        return true;
+                    }
+                    break;
+            }
+
+
+            return false;
+        }
+
         public static Vector2 GetMousePosition()
         {
             return newMouseState.Position.ToVector2();
