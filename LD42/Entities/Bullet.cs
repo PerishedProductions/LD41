@@ -31,18 +31,19 @@ namespace LD41.Entities
         {
             base.Init();
 
-            Sprite = Game.Content.Load<Texture2D>("Sprites/16");
+            Sprite = Game.Content.Load<Texture2D>("Sprites/32");
 
-            Vector2 mousePos = Vector2.Zero;
-            Vector2 mouseWorldPos;
+            var screenPosition = Input.GetMousePosition();
+            var worldPosition = Vector2.Zero;
 
-            scene.Cam.ToWorld(ref mousePos, out mouseWorldPos);
+            scene.Cam.ToWorld(ref screenPosition, out worldPosition);
+            worldPosition = Vector2.Transform(screenPosition, Matrix.Invert(scene.Cam.Transform.Local));
 
 
-            Console.WriteLine($"Mouse Screen: {mousePos}");
-            Console.WriteLine($"Mouse World: {mouseWorldPos}");
+            Console.WriteLine($"Mouse Screen: {screenPosition}");
+            Console.WriteLine($"Mouse World: {worldPosition}");
 
-            dir = mouseWorldPos - Position;
+            dir = worldPosition - Position;
             if (dir != Vector2.Zero)
             {
                 dir.Normalize();

@@ -3,6 +3,7 @@ using Comora;
 using LD41.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using LD41.Util;
 
 namespace LD41.Scenes
 {
@@ -24,7 +25,8 @@ namespace LD41.Scenes
             player = new Player(this.Game, this);
             player.Position = new Vector2(0, 0);
             player.Init();
-            
+
+            Cam.Zoom = 1;
         }
 
         public override void Update()
@@ -33,13 +35,6 @@ namespace LD41.Scenes
             player.Update();
             base.Update();
 
-            var screenPosition = Vector2.Zero;
-            var worldPosition = Vector2.Zero;
-            Cam.ToWorld(ref screenPosition, out worldPosition);
-
-
-            Console.WriteLine($"Mouse Screen: {screenPosition}");
-            Console.WriteLine($"Mouse World: {worldPosition}");
         }
 
         public override void Draw()
